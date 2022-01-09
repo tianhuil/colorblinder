@@ -31,6 +31,33 @@ const styles = StyleSheet.create({
     width: 45,
     marginRight: 12.5,
   },
+  leaderboard: {
+    fontSize: 38,
+    fontFamily: 'dogbyte',
+    color: '#ecf0f1',
+    marginTop: 5,
+  },
+  leaderboardIcon: {
+    height: 50,
+    width: 50,
+    marginRight: 15,
+  },
+  bottomContainer: {
+    position: 'absolute',
+    left: 15,
+    right: 15,
+    bottom: 12.5, // the 2.5px bottom margin from the text is subtracted from the 15px spacing
+    flexDirection: 'row',
+  },
+  copyrightText: {
+    fontSize: 16,
+    fontFamily: 'dogbyte',
+    marginBottom: 2.5,
+  },
+  soundIcon: {
+    height: 35,
+    width: 35,
+  },
 })
 
 const PlayButton = () => {
@@ -39,7 +66,7 @@ const PlayButton = () => {
   return (
     <TouchableOpacity
       onPress={onPlayPress}
-      style={{ flexDirection: 'row', alignItems: 'center' }}
+      style={{ flexDirection: 'row', alignItems: 'center', marginTop: 80 }}
     >
       <Image
         source={require('../assets/icons/play_arrow.png')}
@@ -51,7 +78,7 @@ const PlayButton = () => {
 }
 
 const HighScore = () => (
-  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
     <Image
       source={require('../assets/icons/trophy.png')}
       style={styles.trophyIcon}
@@ -60,10 +87,53 @@ const HighScore = () => (
   </View>
 )
 
+const LeaderBoard = () => (
+  <TouchableOpacity
+    onPress={() => console.log('Pressed Leaderboard')}
+    style={{ flexDirection: 'row', alignItems: 'center', marginTop: 80 }}
+  >
+    <Image
+      source={require('../assets/icons/leaderboard.png')}
+      style={styles.leaderboardIcon}
+    />
+    <Text style={styles.leaderboard}>Leaderboard</Text>
+  </TouchableOpacity>
+)
+
+const Banner = () => {
+  const [soundOn, setSoundOn] = React.useState(true)
+
+  const imageSource = soundOn
+    ? require('../assets/icons/speaker-on.png')
+    : require('../assets/icons/speaker-off.png')
+
+  return (
+    <View style={styles.bottomContainer}>
+      <View style={{ flexDirection: 'column' }}>
+        <Text style={[styles.copyrightText, { color: '#E64C3C' }]}>
+          Music: Komiku
+        </Text>
+        <Text style={[styles.copyrightText, { color: '#E57E31' }]}>
+          SFX: SubspaceAudio
+        </Text>
+        <Text style={[styles.copyrightText, { color: '#3998DB' }]}>
+          Development: RisingStack + Me
+        </Text>
+      </View>
+      <View style={{ flex: 1 }} />
+      <TouchableOpacity onPress={() => setSoundOn(!soundOn)}>
+        <Image source={imageSource} style={styles.soundIcon} />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 export default () => (
   <View style={styles.container}>
     <Header />
     <PlayButton />
     <HighScore />
+    <LeaderBoard />
+    <Banner />
   </View>
 )
