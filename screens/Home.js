@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Header } from '../components'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -12,6 +13,6 @@ const styles = StyleSheet.create({
 
 export default () => (
   <View style={styles.container}>
-    <Text>ColorBlinder - Home screen!</Text>
+    <Header />
   </View>
 )

@@ -1,13 +1,22 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Home from './screens/Home'
+import AppLoading from 'expo-app-loading'
+import { useFonts } from 'expo-font'
+import React from 'react'
+import { StatusBar } from 'react-native'
+import Routes from './screens/Routes'
 
-const Stack = createNativeStackNavigator()
+export default () => {
+  const [loaded] = useFonts({
+    dogbyte: require('./assets/fonts/dogbyte.otf'),
+  })
 
-export default () => (
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name='Home' component={Home} options={{ title: 'Home' }} />
-    </Stack.Navigator>
-  </NavigationContainer>
-)
+  if (loaded) {
+    return (
+      <React.Fragment>
+        <StatusBar barStyle='light-content' />
+        <Routes />
+      </React.Fragment>
+    )
+  } else {
+    return <AppLoading />
+  }
+}
