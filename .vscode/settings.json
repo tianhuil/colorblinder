@@ -1,0 +1,19 @@
+{
+    "[javascript]": {
+      "editor.formatOnSave": true,
+      "editor.formatOnPaste": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      }
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": true,
+      "editor.formatOnPaste": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      }
+    },
+    "files.trimTrailingWhitespace": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  }
