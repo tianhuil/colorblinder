@@ -20,6 +20,17 @@ const styles = StyleSheet.create({
     width: 60,
     marginRight: 15,
   },
+  hiscore: {
+    fontSize: 28.5,
+    fontFamily: 'dogbyte',
+    color: '#ecf0f1',
+    marginTop: 5,
+  },
+  trophyIcon: {
+    height: 45,
+    width: 45,
+    marginRight: 12.5,
+  },
 })
 
 const PlayButton = () => {
@@ -39,9 +50,20 @@ const PlayButton = () => {
   )
 }
 
+const HighScore = () => (
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Image
+      source={require('../assets/icons/trophy.png')}
+      style={styles.trophyIcon}
+    />
+    <Text style={styles.hiscore}>Hi-score: 0</Text>
+  </View>
+)
+
 export default () => (
   <View style={styles.container}>
     <Header />
     <PlayButton />
+    <HighScore />
   </View>
 )
