@@ -106,10 +106,10 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     width: dimension * 0.9,
-    bottom: 12.5, // the 2.5px bottom margin from the text is subtracted from the 15px spacing
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 50,
+    marginBottom: 15,
   },
   tile: {
     height: dimension * 0.9,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 10,
   },
   counterCount: {
     color: white,
