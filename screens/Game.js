@@ -57,7 +57,7 @@ const useGameLogic = () => {
   const [gameState, setGameState] = React.useState('IN_GAME')
 
   return {
-    tileState,
+    ...tileState,
     ...counterState,
     gameState,
     toggleGameState: () => {
@@ -124,7 +124,9 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
 
 export default () => {
   const {
-    tileState,
+    RGB,
+    diffRGB,
+    idx,
     points,
     timeLeft,
     gameTimer,
@@ -133,12 +135,13 @@ export default () => {
     toggleGameState,
   } = useGameLogic()
 
+  const tileProp = { onTilePress, RGB, diffRGB, idx, gameState }
   React.useEffect(gameTimer)
 
   return (
     <View style={styles.container}>
       <Header />
-      <Tiles onTilePress={onTilePress} {...tileState} gameState={gameState} />
+      <Tiles {...tileProp} />
       <View style={{ width: dimension * 0.9 }}>
         <BottomBar
           timeLeft={timeLeft}
