@@ -2,6 +2,8 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
 
+const white = '#ecf0f1'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -12,7 +14,7 @@ const styles = StyleSheet.create({
   play: {
     fontSize: 45,
     fontFamily: 'dogbyte',
-    color: '#ecf0f1',
+    color: white,
     marginTop: 5,
   },
   playIcon: {
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
   hiscore: {
     fontSize: 28.5,
     fontFamily: 'dogbyte',
-    color: '#ecf0f1',
+    color: white,
     marginTop: 5,
   },
   trophyIcon: {
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
   leaderboard: {
     fontSize: 38,
     fontFamily: 'dogbyte',
-    color: '#ecf0f1',
+    color: white,
     marginTop: 5,
   },
   leaderboardIcon: {
