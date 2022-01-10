@@ -121,6 +121,16 @@ const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
   )
 }
 
+const CoffeeBreak = () => (
+  <View style={styles.pausedContainer}>
+    <Image
+      source={require('../assets/icons/mug.png')}
+      style={styles.pausedIcon}
+    />
+    <Text style={styles.pausedText}>COFFEE BREAK</Text>
+  </View>
+)
+
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
@@ -142,13 +152,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
             />
           ))
       ) : (
-        <View style={styles.pausedContainer}>
-          <Image
-            source={require('../assets/icons/mug.png')}
-            style={styles.pausedIcon}
-          />
-          <Text style={styles.pausedText}>COFFEE BREAK</Text>
-        </View>
+        <CoffeeBreak />
       )}
     </View>
   )
