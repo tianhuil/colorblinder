@@ -129,6 +129,13 @@ const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
       <View>
         <Text style={styles.counterCount}>{timeLeft}</Text>
         <Text style={styles.counterLabel}>Time Left</Text>
+        <View style={styles.bestContainer}>
+          <Image
+            source={require('../assets/icons/clock.png')}
+            style={styles.bestIcon}
+          />
+          <Text style={styles.bestLabel}>0s</Text>
+        </View>
       </View>
     </View>
   )
