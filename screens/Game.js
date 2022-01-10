@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
@@ -76,6 +77,18 @@ const useGameLogic = () => {
         }
       }
     },
+    gameTimer: () => {
+      const interval = setInterval(() => {
+        if (gameState === 'IN_GAME') {
+          if (counterState.timeLeft <= 0) {
+            setGameState('LOST')
+          } else {
+            counterState.setTimeLeft(counterState.timeLeft - 1)
+          }
+        }
+      }, 1000)
+      return () => clearInterval(interval)
+    },
   }
 }
 
@@ -121,14 +134,40 @@ const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
   )
 }
 
+const PausedContainer = ({ children }) => {
+  const navigation = useNavigation()
+
+  return (
+    <View style={styles.pausedContainer}>
+      {children}
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Image
+          source={require('../assets/icons/escape.png')}
+          style={styles.exitIcon}
+        />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 const CoffeeBreak = () => (
-  <View style={styles.pausedContainer}>
+  <PausedContainer>
     <Image
       source={require('../assets/icons/mug.png')}
       style={styles.pausedIcon}
     />
     <Text style={styles.pausedText}>COFFEE BREAK</Text>
-  </View>
+  </PausedContainer>
+)
+
+const Lost = () => (
+  <PausedContainer>
+    <Image
+      source={require('../assets/icons/dead.png')}
+      style={styles.pausedIcon}
+    />
+    <Text style={styles.pausedText}>YOU LOST</Text>
+  </PausedContainer>
 )
 
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
@@ -151,31 +190,27 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
               onPress={() => onTilePress(key === idx)}
             />
           ))
-      ) : (
+      ) : gameState === 'PAUSED' ? (
         <CoffeeBreak />
+      ) : (
+        <Lost />
       )}
     </View>
   )
 }
 
-export default ({ navigation }) => {
+export default () => {
   const {
     tileState,
     points,
     timeLeft,
-    setTimeLeft,
+    gameTimer,
     onTilePress,
     gameState,
     toggleGameState,
   } = useGameLogic()
 
-  React.useEffect(() => {
-    const interval = setInterval(
-      () => gameState === 'IN_GAME' && setTimeLeft(timeLeft - 1),
-      1000
-    )
-    return () => clearInterval(interval)
-  })
+  React.useEffect(gameTimer)
 
   return (
     <View style={styles.container}>
@@ -261,5 +296,10 @@ const styles = StyleSheet.create({
   bottomIcon: {
     width: 50,
     height: 50,
+  },
+  exitIcon: {
+    marginTop: 20,
+    width: 90,
+    height: 45,
   },
 })

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const PlayButton = ({ navigation }) => {
+const PlayButton = () => {
+  const navigation = useNavigation()
   const onPlayPress = () => {
     navigation.navigate('Game')
   }
@@ -131,10 +133,10 @@ const Banner = () => {
   )
 }
 
-export default ({ navigation }) => (
+export default () => (
   <View style={styles.container}>
     <Header />
-    <PlayButton navigation={navigation} />
+    <PlayButton />
     <HighScore />
     <LeaderBoard />
     <Banner />
