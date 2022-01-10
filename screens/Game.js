@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
+import { CoffeeBreak, Lost } from '../components/PausedContainer'
 import { generateRGB, getDimension, mutateRGB, white } from '../util'
 
 const size = 4
@@ -141,42 +141,6 @@ const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
   )
 }
 
-const PausedContainer = ({ children }) => {
-  const navigation = useNavigation()
-
-  return (
-    <View style={styles.pausedContainer}>
-      {children}
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Image
-          source={require('../assets/icons/escape.png')}
-          style={styles.exitIcon}
-        />
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-const CoffeeBreak = () => (
-  <PausedContainer>
-    <Image
-      source={require('../assets/icons/mug.png')}
-      style={styles.pausedIcon}
-    />
-    <Text style={styles.pausedText}>COFFEE BREAK</Text>
-  </PausedContainer>
-)
-
-const Lost = () => (
-  <PausedContainer>
-    <Image
-      source={require('../assets/icons/dead.png')}
-      style={styles.pausedIcon}
-    />
-    <Text style={styles.pausedText}>YOU LOST</Text>
-  </PausedContainer>
-)
-
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
@@ -233,7 +197,7 @@ export default () => {
   )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0a0a0a',
@@ -284,29 +248,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 2.5,
   },
-  pausedContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pausedText: {
-    fontFamily: 'dogbyte',
-    textAlign: 'center',
-    color: '#eee',
-    marginTop: 20,
-    fontSize: 60,
-  },
-  pausedIcon: {
-    width: 80,
-    height: 80,
-  },
   bottomIcon: {
     width: 50,
     height: 50,
-  },
-  exitIcon: {
-    marginTop: 20,
-    width: 90,
-    height: 45,
   },
 })
