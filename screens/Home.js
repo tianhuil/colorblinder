@@ -1,8 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
-
-const white = '#ecf0f1'
+import { white } from '../util'
 
 const styles = StyleSheet.create({
   container: {

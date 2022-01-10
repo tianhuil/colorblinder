@@ -9,3 +9,5 @@ export const mutateRGB = ({ r, g, b }) => ({
   g: g + Math.floor(Math.random() * 20) + 10,
   b: b + Math.floor(Math.random() * 20) + 10,
 })
+
+export const white = '#ecf0f1'
