@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
 import { generateRGB, getDimension, mutateRGB, white } from '../util'
 
@@ -27,13 +27,20 @@ const useTileState = () => {
 const BottomBar = ({ timeLeft, points }) => (
   <View style={styles.bottomContainer}>
     <View>
-      <Text style={styles.largeText}>{points}</Text>
-      <Text style={styles.smallText}>Points</Text>
+      <Text style={styles.counterCount}>{points}</Text>
+      <Text style={styles.counterLabel}>Points</Text>
+      <View style={styles.bestContainer}>
+        <Image
+          source={require('../assets/icons/trophy.png')}
+          style={styles.bestIcon}
+        />
+        <Text style={styles.bestLabel}>0</Text>
+      </View>
     </View>
     <View style={{ flex: 1 }}></View>
     <View>
-      <Text style={styles.largeText}>{timeLeft}s</Text>
-      <Text style={styles.smallText}>Time Left</Text>
+      <Text style={styles.counterCount}>{timeLeft}</Text>
+      <Text style={styles.counterLabel}>Time Left</Text>
     </View>
   </View>
 )
@@ -42,16 +49,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
   return (
-    <View
-      style={{
-        height: dimension * 0.9,
-        width: dimension * 0.9,
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignContent: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <View style={styles.tile}>
       {Array(size)
         .fill()
         .map((_, key) => (
@@ -107,19 +105,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bottomContainer: {
-    position: 'absolute',
     width: dimension * 0.9,
     bottom: 12.5, // the 2.5px bottom margin from the text is subtracted from the 15px spacing
     flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 40,
   },
-  largeText: {
+  tile: {
+    height: dimension * 0.9,
+    width: dimension * 0.9,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+  },
+  counterCount: {
     color: white,
-    fontSize: 48,
+    textAlign: 'center',
+    fontSize: 50,
     fontFamily: 'dogbyte',
   },
-  smallText: {
-    color: white,
-    fontSize: 18,
+  counterLabel: {
+    color: '#bbb',
+    textAlign: 'center',
+    fontSize: 20,
     fontFamily: 'dogbyte',
+  },
+  bestContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  bestIcon: {
+    width: 25,
+    height: 25,
+    marginRight: 5,
+  },
+  bestLabel: {
+    fontFamily: 'dogbyte',
+    color: '#bbb',
+    fontSize: 25,
+    marginTop: 2.5,
   },
 })
