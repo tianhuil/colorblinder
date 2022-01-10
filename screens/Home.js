@@ -62,8 +62,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const PlayButton = () => {
-  const onPlayPress = () => console.log('onPlayPress event handler')
+const PlayButton = ({ navigation }) => {
+  const onPlayPress = () => {
+    navigation.navigate('Game')
+  }
 
   return (
     <TouchableOpacity
@@ -130,10 +132,10 @@ const Banner = () => {
   )
 }
 
-export default () => (
+export default ({ navigation }) => (
   <View style={styles.container}>
     <Header />
-    <PlayButton />
+    <PlayButton navigation={navigation} />
     <HighScore />
     <LeaderBoard />
     <Banner />
