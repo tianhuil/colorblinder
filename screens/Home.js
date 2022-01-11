@@ -4,64 +4,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
 import { white } from '../util'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0a0a0a',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  play: {
-    fontSize: 45,
-    fontFamily: 'dogbyte',
-    color: white,
-    marginTop: 5,
-  },
-  playIcon: {
-    height: 60,
-    width: 60,
-    marginRight: 15,
-  },
-  hiscore: {
-    fontSize: 28.5,
-    fontFamily: 'dogbyte',
-    color: white,
-    marginTop: 5,
-  },
-  trophyIcon: {
-    height: 45,
-    width: 45,
-    marginRight: 12.5,
-  },
-  leaderboard: {
-    fontSize: 38,
-    fontFamily: 'dogbyte',
-    color: white,
-    marginTop: 5,
-  },
-  leaderboardIcon: {
-    height: 50,
-    width: 50,
-    marginRight: 15,
-  },
-  bottomContainer: {
-    position: 'absolute',
-    left: 15,
-    right: 15,
-    bottom: 12.5, // the 2.5px bottom margin from the text is subtracted from the 15px spacing
-    flexDirection: 'row',
-  },
-  copyrightText: {
-    fontSize: 16,
-    fontFamily: 'dogbyte',
-    marginBottom: 2.5,
-  },
-  soundIcon: {
-    height: 35,
-    width: 35,
-  },
-})
-
 const PlayButton = () => {
   const navigation = useNavigation()
   const onPlayPress = () => {
@@ -142,3 +84,61 @@ export default () => (
     <Banner />
   </View>
 )
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  play: {
+    fontSize: 45,
+    fontFamily: 'dogbyte',
+    color: white,
+    marginTop: 5,
+  },
+  playIcon: {
+    height: 60,
+    width: 60,
+    marginRight: 15,
+  },
+  hiscore: {
+    fontSize: 28.5,
+    fontFamily: 'dogbyte',
+    color: white,
+    marginTop: 5,
+  },
+  trophyIcon: {
+    height: 45,
+    width: 45,
+    marginRight: 12.5,
+  },
+  leaderboard: {
+    fontSize: 38,
+    fontFamily: 'dogbyte',
+    color: white,
+    marginTop: 5,
+  },
+  leaderboardIcon: {
+    height: 50,
+    width: 50,
+    marginRight: 15,
+  },
+  bottomContainer: {
+    position: 'absolute',
+    left: 15,
+    right: 15,
+    bottom: 12.5, // the 2.5px bottom margin from the text is subtracted from the 15px spacing
+    flexDirection: 'row',
+  },
+  copyrightText: {
+    fontSize: 16,
+    fontFamily: 'dogbyte',
+    marginBottom: 2.5,
+  },
+  soundIcon: {
+    height: 35,
+    width: 35,
+  },
+})
