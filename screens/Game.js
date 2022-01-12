@@ -55,6 +55,7 @@ const useGameLogic = () => {
   const tileState = useTileState()
   const counterState = useCounters(tileState.regenerate)
   const [gameState, setGameState] = React.useState('IN_GAME')
+  const loseFX = useAudio(require('../assets/sfx/lose.wav'))
 
   return {
     ...tileState,
@@ -82,6 +83,7 @@ const useGameLogic = () => {
       const interval = setInterval(() => {
         if (gameState === 'IN_GAME') {
           if (counterState.timeLeft <= 0) {
+            loseFX.replayAsync()
             setGameState('LOST')
           } else {
             counterState.setTimeLeft(counterState.timeLeft - 1)
