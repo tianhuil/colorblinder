@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { white } from '../util'
+import { useAudio, white } from '../util'
 
 export const getBottomIcon = (gameState) => {
   switch (gameState) {
@@ -15,6 +15,18 @@ export const getBottomIcon = (gameState) => {
 
 export const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
   const bottomIcon = getBottomIcon(gameState)
+  const pauseInFX = useAudio(require('../assets/sfx/pause_in.wav'))
+  const pauseOutFX = useAudio(require('../assets/sfx/pause_out.wav'))
+
+  const onBottomBarPress = () => {
+    if (gameState === 'IN_GAME') {
+      pauseInFX.replayAsync()
+    } else if (gameState === 'PAUSED') {
+      pauseOutFX.replayAsync()
+    }
+    toggleGameState()
+  }
+
   return (
     <View style={styles.bottomContainer}>
       <View>
@@ -31,7 +43,7 @@ export const BottomBar = ({ timeLeft, points, toggleGameState, gameState }) => {
       <View style={{ flex: 1 }}>
         <TouchableOpacity
           style={{ alignItems: 'center', flex: 1 }}
-          onPress={toggleGameState}
+          onPress={onBottomBarPress}
         >
           <Image source={bottomIcon} style={styles.bottomIcon} />
         </TouchableOpacity>
