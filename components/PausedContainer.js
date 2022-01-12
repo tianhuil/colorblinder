@@ -1,14 +1,23 @@
 import { useNavigation } from '@react-navigation/native'
+import { Audio } from 'expo-av'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const PausedContainer = ({ children }) => {
   const navigation = useNavigation()
+  const buttonFX = new Audio.Sound()
+
+  const onPressExit = async () => {
+    await buttonFX.replayAsync()
+    navigation.goBack()
+  }
+
+  React.useEffect(() => buttonFX.loadAsync(require('../assets/sfx/button.wav')))
 
   return (
     <View style={styles.pausedContainer}>
       {children}
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <TouchableOpacity onPress={onPressExit}>
         <Image
           source={require('../assets/icons/escape.png')}
           style={styles.exitIcon}
@@ -17,6 +26,7 @@ const PausedContainer = ({ children }) => {
     </View>
   )
 }
+
 export const CoffeeBreak = () => (
   <PausedContainer>
     <Image
