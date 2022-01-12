@@ -1,18 +1,16 @@
 import { useNavigation } from '@react-navigation/native'
-import { Audio } from 'expo-av'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useAudio } from '../util'
 
 const PausedContainer = ({ children }) => {
   const navigation = useNavigation()
-  const buttonFX = new Audio.Sound()
+  const buttonFX = useAudio(require('../assets/sfx/button.wav'))
 
   const onPressExit = async () => {
     await buttonFX.replayAsync()
     navigation.goBack()
   }
-
-  React.useEffect(() => buttonFX.loadAsync(require('../assets/sfx/button.wav')))
 
   return (
     <View style={styles.pausedContainer}>

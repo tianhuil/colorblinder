@@ -1,10 +1,9 @@
-import { Audio } from 'expo-av'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
 import { BottomBar } from '../components/BottomBar'
 import { CoffeeBreak, Lost } from '../components/PausedContainer'
-import { generateRGB, getDimension, mutateRGB } from '../util'
+import { generateRGB, getDimension, mutateRGB, useAudio } from '../util'
 
 const size = 4
 const dimension = getDimension()
@@ -97,8 +96,8 @@ const useGameLogic = () => {
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
-  const tileTapFX = new Audio.Sound()
-  const tileWrongFX = new Audio.Sound()
+  const tileTapFX = useAudio(require('../assets/sfx/tile_tap.wav'))
+  const tileWrongFX = useAudio(require('../assets/sfx/tile_wrong.wav'))
 
   const onTileTap = (rightTile) => {
     if (rightTile) {
@@ -108,13 +107,6 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
     }
     onTilePress(rightTile)
   }
-
-  React.useEffect(() =>
-    Promise.all([
-      tileTapFX.loadAsync(require('../assets/sfx/tile_tap.wav')),
-      tileWrongFX.loadAsync(require('../assets/sfx/tile_wrong.wav')),
-    ])
-  )
 
   return (
     <View style={styles.tile}>

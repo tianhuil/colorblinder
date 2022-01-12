@@ -3,11 +3,11 @@ import { Audio } from 'expo-av'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Banner, Header, HighScore, LeaderBoard } from '../components'
-import { white } from '../util'
+import { useAudio, white } from '../util'
 
 const PlayButton = () => {
   const backgroundMusic = new Audio.Sound()
-  const buttonFX = new Audio.Sound()
+  const buttonFX = useAudio(require('../assets/sfx/button.wav'))
 
   const onPlayPress = () => {
     buttonFX.replayAsync()
@@ -22,7 +22,6 @@ const PlayButton = () => {
       await backgroundMusic.loadAsync(
         require('../assets/music/Komiku_Mushrooms.mp3')
       )
-      await buttonFX.loadAsync(require('../assets/sfx/button.wav'))
       await backgroundMusic.setIsLoopingAsync(true)
       await backgroundMusic.playAsync()
     })()
