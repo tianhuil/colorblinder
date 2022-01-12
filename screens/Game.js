@@ -1,12 +1,17 @@
 import React from 'react'
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+  Animated,
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native'
 import { Header } from '../components'
 import { BottomBar } from '../components/BottomBar'
 import { CoffeeBreak, Lost } from '../components/PausedContainer'
-import { generateRGB, getDimension, mutateRGB, useAudio } from '../util'
+import { generateRGB, mutateRGB, useAudio } from '../util'
 
 const size = 4
-const dimension = getDimension()
 
 const useTileState = () => {
   const [RGB, setRGB] = React.useState(generateRGB())
@@ -117,7 +122,7 @@ const useShakAnimation = () => {
   }
 }
 
-const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
+const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState, dimension }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
   const tileTapFX = useAudio(require('../assets/sfx/tile_tap.wav'))
@@ -137,7 +142,13 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
 
   return (
     <Animated.View
-      style={[styles.tile, { transform: [{ translateX: animation }] }]}
+      style={[
+        styles.tile,
+        {
+          transform: [{ translateX: animation }],
+        },
+        { height: dimension * 0.9, width: dimension * 0.9 },
+      ]}
     >
       {gameState === 'IN_GAME' ? (
         Array(size)
@@ -149,7 +160,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
                 width: dimension * 0.4,
                 height: dimension * 0.4,
                 backgroundColor: key === idx ? toRGB(diffRGB) : toRGB(RGB),
-                margin: dimension * 0.0125,
+                margin: dimension * 0.025,
               }}
               onPress={() => onTileTap(key === idx)}
             />
@@ -175,8 +186,10 @@ export default () => {
     gameState,
     toggleGameState,
   } = useGameLogic()
+  const { width, height } = useWindowDimensions()
+  const dimension = Math.min(width, height)
 
-  const tileProp = { onTilePress, RGB, diffRGB, idx, gameState }
+  const tileProp = { onTilePress, RGB, diffRGB, idx, gameState, dimension }
   React.useEffect(gameTimer)
 
   return (
@@ -203,8 +216,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tile: {
-    height: dimension * 0.9,
-    width: dimension * 0.9,
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignContent: 'center',
