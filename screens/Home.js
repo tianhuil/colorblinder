@@ -23,7 +23,14 @@ const PlayButton = () => {
         require('../assets/music/Komiku_Mushrooms.mp3')
       )
       await backgroundMusic.setIsLoopingAsync(true)
-      await backgroundMusic.playAsync()
+
+      // Play music the first time
+      await backgroundMusic.replayAsync()
+
+      // Play music upon navigation back
+      navigation.addListener('focus', () => {
+        backgroundMusic.replayAsync()
+      })
     })()
   })
 
