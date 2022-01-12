@@ -1,3 +1,4 @@
+import { Audio } from 'expo-av'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
@@ -96,6 +97,25 @@ const useGameLogic = () => {
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
+  const tileTapFX = new Audio.Sound()
+  const tileWrongFX = new Audio.Sound()
+
+  const onTileTap = (rightTile) => {
+    if (rightTile) {
+      tileTapFX.replayAsync()
+    } else {
+      tileWrongFX.replayAsync()
+    }
+    onTilePress(rightTile)
+  }
+
+  React.useEffect(() =>
+    Promise.all([
+      tileTapFX.loadAsync(require('../assets/sfx/tile_tap.wav')),
+      tileWrongFX.loadAsync(require('../assets/sfx/tile_wrong.wav')),
+    ])
+  )
+
   return (
     <View style={styles.tile}>
       {gameState === 'IN_GAME' ? (
@@ -110,7 +130,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
                 backgroundColor: key === idx ? toRGB(diffRGB) : toRGB(RGB),
                 margin: dimension * 0.0125,
               }}
-              onPress={() => onTilePress(key === idx)}
+              onPress={() => onTileTap(key === idx)}
             />
           ))
       ) : gameState === 'PAUSED' ? (
