@@ -6,9 +6,12 @@ import { Banner, Header, HighScore, LeaderBoard } from '../components'
 import { white } from '../util'
 
 const PlayButton = () => {
-  const backgroundAudio = new Audio.Sound()
+  const backgroundMusic = new Audio.Sound()
+  const buttonFX = new Audio.Sound()
+
   const onPlayPress = () => {
-    backgroundAudio.stopAsync()
+    buttonFX.replayAsync()
+    backgroundMusic.stopAsync()
     navigation.navigate('Game')
   }
 
@@ -16,11 +19,12 @@ const PlayButton = () => {
 
   React.useEffect(() => {
     ;(async () => {
-      await backgroundAudio.loadAsync(
+      await backgroundMusic.loadAsync(
         require('../assets/music/Komiku_Mushrooms.mp3')
       )
-      await backgroundAudio.setIsLoopingAsync(true)
-      await backgroundAudio.playAsync()
+      await buttonFX.loadAsync(require('../assets/sfx/button.wav'))
+      await backgroundMusic.setIsLoopingAsync(true)
+      await backgroundMusic.playAsync()
     })()
   })
 
