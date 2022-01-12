@@ -1,14 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
+import { Audio } from 'expo-av'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Banner, Header, HighScore, LeaderBoard } from '../components'
 import { white } from '../util'
 
 const PlayButton = () => {
-  const navigation = useNavigation()
+  const backgroundAudio = new Audio.Sound()
   const onPlayPress = () => {
+    backgroundAudio.stopAsync()
     navigation.navigate('Game')
   }
+
+  const navigation = useNavigation()
+
+  React.useEffect(() => {
+    ;(async () => {
+      await backgroundAudio.loadAsync(
+        require('../assets/music/Komiku_Mushrooms.mp3')
+      )
+      await backgroundAudio.setIsLoopingAsync(true)
+      await backgroundAudio.playAsync()
+    })()
+  })
 
   return (
     <TouchableOpacity
