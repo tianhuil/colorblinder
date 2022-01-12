@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Header } from '../components'
 import { BottomBar } from '../components/BottomBar'
 import { CoffeeBreak, Lost } from '../components/PausedContainer'
@@ -95,23 +95,50 @@ const useGameLogic = () => {
   }
 }
 
+const useShakAnimation = () => {
+  const animation = React.useRef(new Animated.Value(0)).current
+  const animationTiming = (toValue, duration) =>
+    Animated.timing(animation, {
+      toValue: toValue,
+      duration: duration,
+      useNativeDriver: true,
+    })
+
+  return {
+    animation,
+    shake: () =>
+      Animated.sequence([
+        animationTiming(30, 100),
+        animationTiming(-30, 100),
+        animationTiming(30, 100),
+        animationTiming(-30, 100),
+        animationTiming(0, 100),
+      ]).start(),
+  }
+}
+
 const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
   const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
 
   const tileTapFX = useAudio(require('../assets/sfx/tile_tap.wav'))
   const tileWrongFX = useAudio(require('../assets/sfx/tile_wrong.wav'))
 
+  const { animation, shake } = useShakAnimation()
+
   const onTileTap = (rightTile) => {
     if (rightTile) {
       tileTapFX.replayAsync()
     } else {
+      shake()
       tileWrongFX.replayAsync()
     }
     onTilePress(rightTile)
   }
 
   return (
-    <View style={styles.tile}>
+    <Animated.View
+      style={[styles.tile, { transform: [{ translateX: animation }] }]}
+    >
       {gameState === 'IN_GAME' ? (
         Array(size)
           .fill()
@@ -132,7 +159,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState }) => {
       ) : (
         <Lost />
       )}
-    </View>
+    </Animated.View>
   )
 }
 
