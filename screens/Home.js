@@ -54,7 +54,7 @@ const PlayButton = () => {
   )
 }
 
-export default () => (
+const Home = () => (
   <SafeAreaView style={styles.container}>
     <Header />
     <PlayButton />
@@ -63,6 +63,8 @@ export default () => (
     <Banner />
   </SafeAreaView>
 )
+
+export default Home
 
 const styles = StyleSheet.create({
   container: {

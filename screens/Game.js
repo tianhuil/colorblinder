@@ -175,7 +175,7 @@ const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState, dimension }) => {
   )
 }
 
-export default () => {
+const Game = () => {
   const {
     RGB,
     diffRGB,
@@ -208,6 +208,8 @@ export default () => {
     </SafeAreaView>
   )
 }
+
+export default Game
 
 export const styles = StyleSheet.create({
   container: {

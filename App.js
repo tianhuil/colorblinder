@@ -4,7 +4,7 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import Routes from './screens/Routes'
 
-export default () => {
+const App = () => {
   const [loaded] = useFonts({
     dogbyte: require('./assets/fonts/dogbyte.otf'),
   })
@@ -20,3 +20,5 @@ export default () => {
     return <AppLoading />
   }
 }
+
+export default App

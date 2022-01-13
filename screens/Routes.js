@@ -1,11 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react'
 import Game from './Game'
 import Home from './Home'
 
 const Stack = createNativeStackNavigator()
 
-export default () => (
+const Routes = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
@@ -21,3 +22,5 @@ export default () => (
     </Stack.Navigator>
   </NavigationContainer>
 )
+
+export default Routes
