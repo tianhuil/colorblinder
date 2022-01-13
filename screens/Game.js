@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Animated,
+  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   useWindowDimensions,
@@ -193,7 +194,7 @@ export default () => {
   React.useEffect(gameTimer)
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <Tiles {...tileProp} />
       <View style={{ width: dimension * 0.9 }}>
@@ -204,7 +205,7 @@ export default () => {
           gameState={gameState}
         />
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

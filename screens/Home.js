@@ -1,7 +1,13 @@
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 import { Banner, Header, HighScore, LeaderBoard } from '../components'
 import { useAudio, white } from '../util'
 
@@ -49,16 +55,16 @@ const PlayButton = () => {
 }
 
 export default () => (
-  <View style={styles.container}>
+  <SafeAreaView style={styles.container}>
     <Header />
     <PlayButton />
     <HighScore />
     <LeaderBoard />
     <Banner />
-  </View>
+  </SafeAreaView>
 )
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0a0a0a',
