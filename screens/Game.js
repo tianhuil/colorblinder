@@ -1,18 +1,12 @@
 import React from 'react'
 import {
-  Animated,
   SafeAreaView,
   StyleSheet,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native'
-import { Header } from '../components'
-import { BottomBar } from '../components/BottomBar'
-import { CoffeeBreak, Lost } from '../components/PausedContainer'
-import { generateRGB, mutateRGB, useAudio } from '../util'
-
-const size = 4
+import { BottomBar, Header, Tiles } from '../components'
+import { generateRGB, mutateRGB, size, useAudio } from '../util'
 
 const useTileState = () => {
   const [RGB, setRGB] = React.useState(generateRGB())
@@ -101,80 +95,6 @@ const useGameLogic = () => {
   }
 }
 
-const useShakAnimation = () => {
-  const animation = React.useRef(new Animated.Value(0)).current
-  const animationTiming = (toValue, duration) =>
-    Animated.timing(animation, {
-      toValue: toValue,
-      duration: duration,
-      useNativeDriver: true,
-    })
-
-  return {
-    animation,
-    shake: () =>
-      Animated.sequence([
-        animationTiming(30, 100),
-        animationTiming(-30, 100),
-        animationTiming(30, 100),
-        animationTiming(-30, 100),
-        animationTiming(0, 100),
-      ]).start(),
-  }
-}
-
-const Tiles = ({ onTilePress, RGB, diffRGB, idx, gameState, dimension }) => {
-  const toRGB = (RGB) => `rgb(${RGB.r}, ${RGB.g}, ${RGB.b})`
-
-  const tileTapFX = useAudio(require('../assets/sfx/tile_tap.wav'))
-  const tileWrongFX = useAudio(require('../assets/sfx/tile_wrong.wav'))
-
-  const { animation, shake } = useShakAnimation()
-
-  const onTileTap = (rightTile) => {
-    if (rightTile) {
-      tileTapFX.replayAsync()
-    } else {
-      shake()
-      tileWrongFX.replayAsync()
-    }
-    onTilePress(rightTile)
-  }
-
-  return (
-    <Animated.View
-      style={[
-        styles.tile,
-        {
-          transform: [{ translateX: animation }],
-        },
-        { height: dimension * 0.9, width: dimension * 0.9 },
-      ]}
-    >
-      {gameState === 'IN_GAME' ? (
-        Array(size)
-          .fill()
-          .map((_, key) => (
-            <TouchableOpacity
-              key={key}
-              style={{
-                width: dimension * 0.4,
-                height: dimension * 0.4,
-                backgroundColor: key === idx ? toRGB(diffRGB) : toRGB(RGB),
-                margin: dimension * 0.025,
-              }}
-              onPress={() => onTileTap(key === idx)}
-            />
-          ))
-      ) : gameState === 'PAUSED' ? (
-        <CoffeeBreak />
-      ) : (
-        <Lost />
-      )}
-    </Animated.View>
-  )
-}
-
 const Game = () => {
   const {
     RGB,
@@ -211,18 +131,11 @@ const Game = () => {
 
 export default Game
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0a0a0a',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  tile: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
   },
 })
