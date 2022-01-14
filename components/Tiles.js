@@ -1,6 +1,6 @@
 import React from 'react'
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native'
-import { size, useAudio } from '../util'
+import { useAudio } from '../util'
 import { CoffeeBreak, Lost } from './PausedContainer'
 
 const useShakAnimation = () => {
@@ -26,6 +26,7 @@ const useShakAnimation = () => {
 }
 
 export const Tiles = ({
+  size,
   onTilePress,
   RGB,
   diffRGB,

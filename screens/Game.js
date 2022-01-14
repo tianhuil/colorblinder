@@ -6,7 +6,9 @@ import {
   View,
 } from 'react-native'
 import { BottomBar, Header, Tiles } from '../components'
-import { generateRGB, mutateRGB, size, useAudio } from '../util'
+import { generateRGB, mutateRGB, useAudio } from '../util'
+
+const size = 4
 
 const useTileState = () => {
   const [RGB, setRGB] = React.useState(generateRGB())
@@ -110,7 +112,15 @@ const Game = () => {
   const { width, height } = useWindowDimensions()
   const dimension = Math.min(width, height)
 
-  const tileProp = { onTilePress, RGB, diffRGB, idx, gameState, dimension }
+  const tileProp = {
+    onTilePress,
+    RGB,
+    diffRGB,
+    idx,
+    gameState,
+    dimension,
+    size,
+  }
   React.useEffect(gameTimer)
 
   return (
